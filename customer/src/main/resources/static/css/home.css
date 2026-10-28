@@ -1,0 +1,128 @@
+/* Prevent horizontal scroll */
+body {
+    overflow-x: hidden;
+}
+
+/* Wrapper spacing from top */
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;   /* 🔥 adds space from header */
+}
+
+/* Grid Layout */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;          /* slightly reduced gap */
+    max-width: 850px;   /* 🔥 smaller overall width */
+    width: 100%;
+}
+
+/* Product Card */
+.product-card {
+    background: white;
+    padding: 12px;      /* 🔥 smaller padding */
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+/* Image */
+.product-img {
+    width: 100%;
+    height: 150px;      /* 🔥 smaller image */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Price */
+.price {
+    font-size: 18px;    /* slightly smaller text */
+    color: green;
+}
+
+/* Button */
+.view-btn {
+    background: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;   /* 🔥 space above & below */
+}
+
+.search-container form {
+    display: flex;
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    background: white;
+}
+
+.search-container input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+.search-container button {
+    padding: 10px 15px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.search-container form {
+    width: 500px;
+}
+
+.product-card form button {
+    width: 100%;
+    padding: 8px;
+    background: darkorange;        /* Blue */
+    color: white;            /* White text */
+    border: none;
+    border-radius: 8px;      /* Rounded corners */
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Hover */
+.product-card form button:hover {
+    background: red;   
+}
+
+/* Click / Press */
+.product-card form button:active {
+    transform: scale(0.97);  /* Slight press effect */
+}
+
+/* Optional Shadow */
+.product-card form button {
+    box-shadow: 0 2px 6px lightgrey;  /* Light grey shadow */
+}

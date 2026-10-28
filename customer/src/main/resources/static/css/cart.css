@@ -1,0 +1,68 @@
+
+/* Container */
+.container {
+    width: 100%;                 /* was 90% → causes overflow */
+    max-width: 1100px;           /* control max size */
+    margin: 30px 0;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px lightgray;
+    overflow-x: auto;            /* prevents breaking */
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+/* Buttons */
+
+.secondary-btn {
+    background: gray;
+}
+
+.secondary-btn:hover {
+    background: darkgray;
+}
+
+/* Order Section */
+
+.order-btn {
+    background: blue;
+    color: white;
+    padding: 8px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;          /* needed for centering */
+    margin: 20px auto;       /* centers button */
+}
+
+.order-btn:hover {
+    background: darkblue;
+}
+
+
+.order-all {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.order-all button {
+    background: green;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+.order-all button:hover {
+    background: darkgreen;
+}
+
+.final-total {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+}

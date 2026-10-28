@@ -1,0 +1,53 @@
+       body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: lightblue;
+        }
+
+        .header {
+            background-color: black;
+            color: white;
+            padding: 30px;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+        }
+
+        .card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 10px gray;
+            text-align: center;
+            width: 350px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .shop-btn {
+            background-color: green;
+            color: white;
+        }
+
+        .login-btn {
+            background-color: darkorange;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }

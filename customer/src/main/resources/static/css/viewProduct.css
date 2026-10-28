@@ -1,0 +1,82 @@
+/* Wrapper */
+.product-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* Bigger Box */
+.product-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: lightyellow;
+    padding: 40px;              /* increased padding */
+    border-radius: 12px;
+    width: 85%;                 /* increased from 70% */
+    max-width: 1200px;          /* prevents over stretching */
+    box-shadow: 0 4px 15px gray;
+    gap: 40px;                  /* spacing between sections */
+}
+
+/* Bigger Image */
+.product-img {
+    width: 300px;               /* increased */
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Text Scaling */
+.product-name {
+    font-size: 34px;            /* increased */
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 28px;
+    color: darkgreen;
+}
+
+/* Center content spacing */
+.product-details {
+    text-align: center;
+}
+
+.product-details p {
+    margin: 15px 0;
+}
+
+/* Quantity */
+.qty-container {
+    margin-top: 20px;
+}
+
+.qty-label {
+    font-size: 20px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.qty-input {
+    width: 100px;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid gray;
+}
+
+
+.action-buttons button {
+    padding: 14px 30px;         /* bigger buttons */
+    font-size: 18px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.action-buttons button:hover {
+    background: gray;
+}

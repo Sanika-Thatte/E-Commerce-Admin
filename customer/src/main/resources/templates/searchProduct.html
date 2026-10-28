@@ -1,0 +1,143 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<title>Search Products</title>
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/searchProduct.css}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Search Products</h2>
+        <a th:href="@{/userDashboard}">Home</a>
+        <a th:href="@{/searchUserProduct}" class="active">Search Products</a>
+        <a th:href="@{/order}">My Orders</a>
+        <a th:href="@{/cart}">Cart</a>
+        <!-- Show Logout if logged in -->
+		<a href="#" sec:authorize="isAuthenticated()" onclick="confirmLogout()">Logout</a>
+		
+		<!-- Show Login if NOT logged in -->
+		<a th:href="@{/userLogin}" sec:authorize="isAnonymous()">Login</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+    
+        <!-- Top -->
+        <div id="topSection"></div>
+
+        <!-- Header -->
+        <div class="header">
+            <h2>
+		    Welcome 
+		    <span sec:authorize="isAuthenticated()">
+		        <span sec:authentication="name"></span>
+		    </span>
+		    <span sec:authorize="isAnonymous()">
+		        Customer
+		    </span>
+    
+            </h2>
+            <!-- Logout Button -->
+		    <div class="logout-btn" 
+		         sec:authorize="isAuthenticated()" 
+		         onclick="confirmLogout()">
+		        Logout
+		    </div>
+		
+		    <!-- Login Button -->
+		    <div class="logout-btn" 
+		         sec:authorize="isAnonymous()"
+		         onclick="window.location.href='/userLogin'">
+		        Login
+		    </div>
+        </div>
+
+        <p class="error" style="color:red;" th:if="${error}" th:text="${error}"></p>
+        <p class="message" style="color:green;" th:if="${message}" th:text="${message}"></p>
+
+        <!-- Search -->
+    <div id="searchSection" class="search-container">
+
+        <div class="search-box">
+            <h3>Search Products</h3>
+            <form th:action="@{searchUserProduct}" method="get">
+                <input type="number" name="productid" placeholder="Product Id">
+                <input type="text" name="productname" placeholder="Product Name">
+                <input type="text" name="productcategory" placeholder="Category">
+                <br><br>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="search-box">
+            <h3>All Products</h3>
+            <form th:action="@{searchUserProduct}" method="get">
+                <button type="submit" name="seeData" value="all">See All Products</button>
+            </form>
+        </div>
+
+    </div>
+
+        <!-- RESULTS -->
+        <div class="card">
+            <h2>Search Results</h2>
+
+            <table th:if="${products!=null && !products.isEmpty()}">
+
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>View</th>
+                </tr>
+
+                <tr th:each="p : ${products}" >
+                    <td th:text="${p.productId}"></td>
+                    <td th:text="${p.name}"></td>
+                    <td th:text="${p.category.name}"></td>
+                    
+                    <td>
+				    <img 
+				        th:src="@{'/uploads/' + ${p.image}}" 
+				        class="product-img" 
+				        style="width:60px; height:60px; object-fit:cover; border-radius:6px;"
+				        onclick="openImage(this.src)">
+				    </td>
+				
+                    <td th:text="${p.quantity}"></td>
+                    <td th:text="${p.price}"></td>
+                    <td>
+                        <form th:action="@{/viewProduct}" method="post">
+                            <input type="hidden" name="productId" th:value="${p.productId}">
+                            <button type="submit">View</button>
+                        </form>
+                    </td>
+                </tr>
+
+            </table>
+
+            <p th:if="${products==null || products.isEmpty()}">No Results Found!</p>
+        </div>
+
+    </div>
+
+</div>
+
+<form id="logoutForm" th:action="@{/userLogout}" method="post">
+</form>
+         
+         <script th:src="@{/js/common.js}"></script>
+
+</body>
+</html>

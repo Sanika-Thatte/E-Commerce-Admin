@@ -1,0 +1,91 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Welcome Customer</title>
+
+<link rel="stylesheet" th:href="@{/css/userWelcome.css}">
+
+</head>
+
+<body>
+
+<h1 class="header">
+    Customer Portal
+</h1>
+
+<hr>
+
+<p class="error" th:if="${param.error}">
+   Invalid username or password
+</p>
+
+<p class="success" th:if="${param.logout}">
+   Logged out successfully
+</p>
+
+<p class="success" th:if="${message}" th:text="${message}"></p>
+
+<p class="error" th:if="${error}" th:text="${error}"></p>
+
+<p class="error" th:if="${param.errorMsg}" th:text="${param.errorMsg}"></p>
+
+<div class="container">
+
+    <!-- LOGIN -->
+    <h2 class="section-title">Already have account? Login</h2>
+
+    <form th:action="@{/userLogin}" method="post">
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username" required></td>
+            </tr>
+
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button style="background-color:black; color:white;">
+                        Login
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <br>
+
+    <!-- SIGNUP -->
+    <h2 class="section-title">New User? Sign Up</h2>
+
+    <form th:action="@{/userSignUp}" method="post">
+        <table>
+            <tr>
+                <td>Username:</td>
+                <td><input type="text" name="username" required></td>
+            </tr>
+
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="password" required></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button style="background-color:black; color:white;">
+                        Sign Up
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+.delivered {
+    background: green;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.pending {
+    background: orange;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.cancelled {
+    background: red;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+
+/* Order Card */
+.order-card {
+    background: white;
+    margin-bottom: 20px;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px lightgray;
+}
+
+/* Header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Status */
+.order-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Items */
+.order-items {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+/* Single item */
+.order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    gap: 15px;
+}
+
+
+
+/* Details */
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+/* Price */
+.item-total {
+    font-weight: bold;
+}
+
+/* Footer */
+.order-footer {
+    text-align: right;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+h1 {
+    margin-left: 20px;   /* adjust value as needed */
+}
+

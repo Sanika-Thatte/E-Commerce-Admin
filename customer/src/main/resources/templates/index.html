@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>E-Commerce App</title>
+
+    <link rel="stylesheet" th:href="@{/css/index.css}">
+</head>
+
+<body>
+
+    <div class="header">
+        Welcome to E-Commerce App
+    </div>
+
+    <div class="container">
+        <div class="card">
+
+            <h2>Start Shopping</h2>
+
+            <!-- Shop -->
+            <form th:action="@{/userDashboard}" method="get">
+                <button type="submit" class="btn shop-btn">
+                    Shop Here
+                </button>
+            </form>
+
+            <!-- Login -->
+            <form th:action="@{/userWelcome}" method="get">
+                <button type="submit" class="btn login-btn">
+                    Login / Signup
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>

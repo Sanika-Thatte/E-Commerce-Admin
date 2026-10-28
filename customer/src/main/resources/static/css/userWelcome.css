@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 30px;
+    font-size: 40px;
+}
+
+/* Container */
+.container {
+    width: 350px;
+    margin: 50px auto;
+    background-color: lightblue;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Table */
+table {
+    width: 100%;
+}
+
+td {
+    padding: 8px;
+}
+
+/* Inputs */
+input {
+    padding: 6px;
+    width: 95%;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+/* Buttons */
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Sections */
+.section-title {
+    text-align: center;
+}
+
+/* Messages */
+.error {
+    color: red;
+    text-align: center;
+    font-size: 18px;
+}
+
+.success {
+    color: green;
+    text-align: center;
+    font-size: 18px;
+}

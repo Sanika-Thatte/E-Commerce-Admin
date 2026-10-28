@@ -1,0 +1,110 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<title>View Product</title>
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/viewProduct.css}">
+
+</head>
+
+<body>
+
+<p class="error" style="color:red;" th:if="${error}" th:text="${error}"></p>
+<p class="message" style="color:green;" th:if="${message}" th:text="${message}"></p>
+
+<div class="dashboard">
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>Customer Panel</h2>
+    <a th:href="@{/userDashboard}">Home</a>
+    <a th:href="@{searchUserProduct}">Search Products</a>
+    <a th:href="@{/order}">My Orders</a>
+    <a th:href="@{/cart}">Cart</a>
+
+    <a href="#" sec:authorize="isAuthenticated()" onclick="confirmLogout()">Logout</a>
+    <a th:href="@{/userLogin}" sec:authorize="isAnonymous()">Login</a>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<!-- Header -->
+<div class="header">
+    <h2>
+        Welcome 
+        <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+        <span sec:authorize="isAnonymous()">Customer</span>
+    </h2>
+
+    <div class="logout-btn" sec:authorize="isAuthenticated()" onclick="confirmLogout()">Logout</div>
+    <div class="logout-btn" sec:authorize="isAnonymous()" onclick="window.location.href='/userLogin'">Login</div>
+</div>
+
+<!-- Product Section -->
+<div class="product-wrapper">
+
+<div class="product-box">
+
+    <!-- Image -->
+    <img th:src="@{'/uploads/' + ${product.image}}" class="product-img">
+
+    <!-- Details -->
+    <div class="product-details">
+        <p class="product-name">
+            <span th:text="${product.name}"></span>
+        </p>
+
+        <p class="product-price">
+            ₹ <span th:text="${product.price}"></span>
+        </p>
+
+        <div class="qty-container">
+          <label class="qty-label"><b>Quantity:</b></label>
+          <input type="number" id="qty" class="qty-input"
+                value="1" min="1"
+                th:max="${product.quantity}">
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="action-buttons">
+
+        <!-- Add to Cart -->
+        <form th:action="@{/addToCart}" method="post" onsubmit="setQty('cartQty')">
+            <input type="hidden" name="productId" th:value="${product.productId}">
+            <input type="hidden" name="quantity" id="cartQty">
+
+            <button type="submit" sec:authorize="isAuthenticated()">Add to Cart</button>
+            <button type="button" sec:authorize="isAnonymous()"
+                    onclick="window.location.href='/userLogin?errorMsg=Please login to place order'">
+                Add to Cart
+            </button>
+        </form>
+
+        <!-- Order Now -->
+        <form th:action="@{/orderProduct}" method="post" onsubmit="setQty('orderQty')">
+            <input type="hidden" name="productId" th:value="${product.productId}">
+            <input type="hidden" name="quantity" id="orderQty">
+
+            <button type="submit" sec:authorize="isAuthenticated()">Order Now</button>
+            <button type="button" sec:authorize="isAnonymous()"
+                    onclick="window.location.href='/userLogin?errorMsg=Please login to place order'">
+                Order Now
+            </button>
+        </form>
+
+    </div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+       <script th:src="@{/js/common.js}"></script>
+       
+</body>
+</html>

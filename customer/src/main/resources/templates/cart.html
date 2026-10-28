@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>My Cart</title>
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/cart.css}">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>Customer Panel</h2>
+    <a th:href="@{/userDashboard}">Home</a>
+    <a th:href="@{/searchUserProduct}">Search Products</a>
+    <a th:href="@{/order}">My Orders</a>
+    <a th:href="@{/cart}" class="active">Cart</a>
+
+    <a href="#" sec:authorize="isAuthenticated()" onclick="confirmLogout()">Logout</a>
+    <a th:href="@{/userLogin}" sec:authorize="isAnonymous()">Login</a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <!-- Header -->
+    <div class="header">
+        <h2>
+            Welcome 
+            <span sec:authorize="isAuthenticated()" sec:authentication="name"></span>
+            <span sec:authorize="isAnonymous()">Customer</span>
+        </h2>
+
+        <div class="logout-btn" sec:authorize="isAuthenticated()" onclick="confirmLogout()">Logout</div>
+        <div class="logout-btn" sec:authorize="isAnonymous()" onclick="window.location.href='/userLogin'">Login</div>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="container">
+        <h1>My Cart</h1>
+
+        <table th:if="${cartItems != null and !cartItems.isEmpty()}">
+            <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+
+            <tr th:each="item : ${cartItems}">
+                <td th:text="${item.product.name}"></td>
+                <td th:text="${item.product.category != null ? item.product.category.name : 'N/A'}"></td>
+                <td>
+                    <img th:src="@{'/uploads/' + ${item.product.image}}" 
+                         class="product-img"
+                         onclick="openImage(this.src)">
+                </td>
+                <td th:text="${item.product.price}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="${item.product.price * item.quantity}"></td>
+
+                <td>
+                    <form th:action="@{/orderCartItem}" method="post">
+                        <input type="hidden" name="cartItemId" th:value="${item.id}">
+
+                        <button type="submit" sec:authorize="isAuthenticated()" class="order-btn">Order</button>
+                        <button type="button" sec:authorize="isAnonymous()" 
+                                onclick="window.location.href='/userLogin'" 
+                                class="secondary-btn">Login</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <p th:if="${cartItems == null or #lists.isEmpty(cartItems)}">Cart is empty</p>
+
+        <div class="order-all" th:if="${cartItems != null and !#lists.isEmpty(cartItems)}">
+            <h3>Total: ₹ <span class="final-total" th:text="${totalAmount}"></span></h3>
+
+            <form th:action="@{/orderCart}" method="post">
+                <button sec:authorize="isAuthenticated()">Order All</button>
+                <button type="button" sec:authorize="isAnonymous()" onclick="window.location.href='/userLogin'">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeImage()">&times;</span>
+    <img class="modal-content" id="fullImage">
+</div>
+
+<form id="logoutForm" th:action="@{/userLogout}" method="post">
+</form>
+
+<script th:src="@{/js/common.js}"></script>
+
+</body>
+</html>

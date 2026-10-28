@@ -1,0 +1,94 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<title>Customer Dashboard</title>
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/order.css}">
+<link rel="stylesheet" th:href="@{/css/home.css}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Customer Panel</h2>
+        <a th:href="@{/userDashboard}" class="active">Home</a>
+        <a th:href="@{/searchUserProduct}">Search Products</a>
+        <a th:href="@{/order}">My Orders</a>
+        <a th:href="@{/cart}">Cart</a>
+        <!-- Show Logout if logged in -->
+		<a href="#" sec:authorize="isAuthenticated()" onclick="confirmLogout()">Logout</a>
+		
+		<!-- Show Login if NOT logged in -->
+		<a th:href="@{/userLogin}" sec:authorize="isAnonymous()">Login</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+    
+    <!-- Top -->
+    <div id="topSection"></div>
+
+    <!-- Header -->
+    <div class="header">
+        <h2>
+            Welcome 
+            <span sec:authorize="isAuthenticated()">
+                <span sec:authentication="name"></span>
+            </span>
+            <span sec:authorize="isAnonymous()">
+                Customer
+            </span>
+        </h2>
+
+        <div class="logout-btn" sec:authorize="isAuthenticated()" onclick="confirmLogout()">Logout</div>
+        <div class="logout-btn" sec:authorize="isAnonymous()" onclick="window.location.href='/userLogin'">Login</div>
+        
+    </div>
+
+    <p class="error" style="color:red;" th:if="${error}" th:text="${error}"></p>
+    <p class="message" style="color:green;" th:if="${message}" th:text="${message}"></p>
+    
+    <div class="search-container">
+       <form th:action="@{/searchBar}" method="get">
+        <input type="text" name="keyword" placeholder="Search products..." required>
+        <button type="submit">Search</button>
+       </form>
+    </div>
+
+    <!-- ✅ MOVE THIS INSIDE MAIN -->
+    <div class="content-wrapper">
+        <div class="product-grid">
+    
+            <div class="product-card" th:each="p : ${products}">
+                <img th:src="@{'/uploads/' + ${p.image}}" class="product-img">
+
+                <h3 th:text="${p.name}"></h3>
+
+                <p class="price">₹ <span th:text="${p.price}"></span></p>
+
+                <form th:action="@{/viewProduct}" method="post">
+                            <input type="hidden" name="productId" th:value="${p.productId}">
+                            <button type="submit">View</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div> <!-- ✅ main closes here -->
+</div>
+
+<form id="logoutForm" th:action="@{/userLogout}" method="post">
+</form>
+        
+         
+         <script th:src="@{/js/common.js}"></script>
+
+</body>
+</html>
