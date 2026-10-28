@@ -1,69 +1,63 @@
-# E-Commerce-Admin
-This is a E-Commerce Application Admin panel. Here you can add, delete, edit products with its proper name, category, price of  product.
-
-# 🛒 E-Commerce Admin & Backend Platform
+# 🛒 Complete E-Commerce Platform Architecture
 
 [![Spring Boot](https://shields.io)](https://spring.io)
 [![Java](https://shields.io)](https://oracle.com)
 [![MySQL](https://shields.io)](https://mysql.com)
 
-A secure, robust Spring Boot REST API backend application serving as the core engine for an **E-Commerce Platform**. This system provides a unified backend architecture capable of handling product management, persistent user shopping carts, and checkout order processing.
+A comprehensive, split-architecture E-Commerce platform built using Spring Boot and MySQL. The ecosystem is divided into two distinct, decoupled micro-applications operating on different local ports to isolate administrative workflows from public customer traffic.
 
 ---
 
-## 🌟 Core System Features
+## 🏗️ Repository Architecture
 
-This platform manages the foundational lifecycle of an online marketplace, split into three major modules:
+This project is organized as a monorepository containing both application subsystems:
 
-### 📦 1. Product Management (`Add / Update / Delete`)
-* **Inventory Entry:** Allows administrators to securely input new products with titles, deep descriptions, pricing tiers, and stock tallies.
-* **Media Uploads Engine:** Integrated multi-part request system handling image file streaming (`spring.servlet.multipart.enabled=true`) to upload and bind product pictures directly.
-* **Dynamic Restocking:** Tracks and updates database product layers automatically as items sell out.
-
-### 🛒 2. Shopping Cart Operations
-* **Persistent Sessions:** Saves user cart selections reliably within the database schema.
-* **Flexible Cart Actions:** Provides endpoints to append items, scale quantities up or down, or erase items entirely from the active checkout list.
-* **Price Computations:** Calculates subtotal pricing configurations on-the-fly reflecting real-time stock pricing adjustments.
-
-### 📋 3. Order Processing & Checkout
-* **Cart Transition:** Locks cart parameters and securely transitions active user carts into finalized, unalterable order items.
-* **Order History Logs:** Generates persistent receipt histories mapping unique buyer IDs against order records, total payouts, and timestamps.
+```text
+my-ecommerce-platform/
+│
+├── 📁 ecommerce-customer/   (Runs on Port 8080)
+│     ├── 📁 src/             (Customer marketplace logic)
+│     └── 📄 pom.xml
+│
+└── 📁 ecommerce-admin/       (Runs on Port 8081)
+      ├── 📁 src/             (Admin management logic)
+      └── 📄 pom.xml
+```
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## 🌟 Application Features Matrix
 
-* **Framework:** Spring Boot (v3.x)
-* **Language:** Java 17+
-* **Database:** MySQL
-* **ORM / Data Access:** Spring Data JPA / Hibernate
-* **Build Tool:** Maven (Embedded via Maven Wrapper)
-* **Server Port:** `8081`
+### 👤 1. Customer Marketplace Platform (`Port 8080`)
+The client-facing subsystem provides a smooth shopping experience for public visitors:
+* **Product Discovery:** Browse available store inventories and view attached product images.
+* **Smart Search:** Search and find items effortlessly from the product catalog.
+* **Persistent Shopping Cart:** Add items to a shopping cart, modify ordered item quantities dynamically, or remove items before checking out.
+* **Checkout & Orders:** Finalize checkout workflows to transition shopping carts into locked customer order logs with individual transaction tracking records.
 
----
-
-## 📁 System Requirements & Dependencies
-
-Ensure you have the following installed on your local development machine:
-1. **Java JDK 17** or higher (configured in your system environment path).
-2. **MySQL Community Server** running locally.
-3. An IDE of your choice (IntelliJ IDEA, Eclipse/STS, or VS Code).
+### 👑 2. Admin Management Platform (`Port 8081`)
+The administrative subsystem empowers shop owners to manage the store's core inventory and catalog layers:
+* **Add Products:** Initialize new items with structural attributes (Title, detailed Descriptions, Price tiers, and stock tallies).
+* **Media Uploads Engine:** Stream multi-part network payloads (`spring.servlet.multipart.enabled=true`) to upload and bind product imagery natively.
+* **View & Audit:** Fetch real-time lists or singular item lookups directly from the unified database.
+* **Edit & Refactor:** Dynamically update pricing details, adjust inventories, modify text descriptions, or swap image links.
+* **Delete Catalog Entries:** Hard-remove outdated or discontinued items permanently from the system space.
 
 ---
 
 ## ⚙️ Step-by-Step Local Setup Instructions
 
-### 1. Initialize the Local Database
-Log into your MySQL Workbench or Command Line Interface and execute the database initialization query:
+### 1. Initialize the Unified Database
+Both applications connect to the same central database. Log into your MySQL Workbench or CLI and run:
 ```sql
 CREATE DATABASE commerce;
 ```
-*Note: You do not need to create tables manually. Hibernate's DDL auto-configuration (`spring.jpa.hibernate.ddl-auto=update`) will build the product, cart, and order tables dynamically upon application boot.*
+*Note: Hibernate's DDL auto-configuration (`spring.jpa.hibernate.ddl-auto=update`) in either app will build and patch the database schema dynamically upon boot.*
 
 ### 2. Configure Your Database Password (Security System)
-To prevent tracking sensitive security credentials, this project isolates database passwords using environment variables. **Do not modify the `application.properties` file directly.**
+To prevent tracking sensitive security credentials, both applications isolate database passwords using environment variables. **Do not write your password inside either `application.properties` file.**
 
-Choose the command matching your local terminal platform to bind your database password:
+Set your variable in the terminal instance before running the apps:
 
 #### 💻 Windows Command Prompt (cmd)
 ```cmd
@@ -82,50 +76,36 @@ export DB_PASSWORD="your_actual_mysql_password"
 
 ---
 
-## 🚀 Compiling and Running the Application
+## 🚀 Launching the Ecosystem
 
-You do not need to install Maven globally on your computer. The repository packages an embedded Maven wrapper file sequence (`mvnw`).
+Navigate into your preferred project directory and use the packaged Maven wrapper files (`mvnw`). You must run these in separate terminal windows:
 
-Open your terminal in the root directory of the project and execute:
+### Launch the Customer App (`Port 8080`)
+```cmd
+cd ecommerce-customer
+mvnw.cmd spring-boot:run
+```
+🔗 **Endpoint:** `http://localhost:8080`
 
-* **Windows Machines:**
-  ```cmd
-  mvnw.cmd spring-boot:run
-  ```
-* **macOS / Linux Machines:**
-  ```bash
-  chmod +x mvnw
-  ./mvnw spring-boot:run
-  ```
-
-Once your console outputs the initialization confirmation string `Started CommerceApplication in X.XXX seconds`, your application is live.
-
-🔗 **Base Local Endpoint:** `http://localhost:8081`
+### Launch the Admin Panel (`Port 8081`)
+```cmd
+cd ecommerce-admin
+mvnw.cmd spring-boot:run
+```
+🔗 **Endpoint:** `http://localhost:8081`
 
 ---
 
-## 💾 Core Properties Overview
+## 💾 Core Properties Profile
 
-The internal configurations bound inside `src/main/resources/application.properties` manage the following behaviors:
+Both services operate on matching database drivers but separate web listening targets:
 
-| Property Key | Default Configuration Value | Operational Purpose |
+| Property Configuration Key | Customer Subsystem (`8080`) | Admin Subsystem (`8081`) |
 | :--- | :--- | :--- |
-| `server.port` | `8081` | Binds the active web server port listener |
-| `spring.datasource.url` | `jdbc:mysql://localhost:3306/commerce` | Establishes the driver connection path |
-| `spring.datasource.username` | `root` | System database profile handle |
-| `spring.datasource.password` | `${DB_PASSWORD:}` | Secure environmental abstraction parameter |
-| `spring.jpa.hibernate.ddl-auto`| `update` | Automatically patches SQL data structures |
-| `spring.servlet.multipart.enabled`| `true` | Allows image/file data streaming extensions |
-
----
-
-## 🔧 Troubleshooting Guide
-
-* **Error: `Access denied for user 'root'@'localhost'`**
-  * **Fix:** The application cannot detect your password. Ensure you explicitly set the `DB_PASSWORD` variable in the exact same terminal instance you are running `mvnw`.
-* **Error: `Unknown database 'commerce'`**
-  * **Fix:** Verify you have executed the `CREATE DATABASE commerce;` script in your database system.
-* **Error: `Port 8081 was already in use`**
-  * **Fix:** Another process is blocking port `8081`. You can free up the port or change `server.port=8081` to another value inside `application.properties` (e.g., `8082`).
-
+| `server.port` | `8080` | `8081` |
+| `spring.datasource.url` | `jdbc:mysql://localhost:3306/commerce` | `jdbc:mysql://localhost:3306/commerce` |
+| `spring.datasource.username` | `root` | `root` |
+| `spring.datasource.password` | `${DB_PASSWORD:}` | `${DB_PASSWORD:}` |
+| `spring.jpa.hibernate.ddl-auto`| `update` | `update` |
+| `spring.servlet.multipart.enabled`| `true` | `true` |
 
