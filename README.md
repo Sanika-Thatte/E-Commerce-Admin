@@ -45,6 +45,15 @@ The administrative subsystem empowers shop owners to manage the store's core inv
 
 ---
 
+## 🛠️ Technologies & Languages
+
+* **Programming Language:** Java
+* **Framework:** Spring Boot
+* **Template Engine:** JSP (JavaServer Pages)
+* **Database:** MySQL
+* **Frontend Design:** HTML, CSS
+---
+
 ## ⚙️ Step-by-Step Local Setup Instructions
 
 ### 1. Initialize the Unified Database
