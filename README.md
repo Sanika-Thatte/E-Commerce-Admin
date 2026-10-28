@@ -15,12 +15,12 @@ This project is organized as a monorepository containing both application subsys
 ```text
 my-ecommerce-platform/
 │
-├── 📁 customer/   (Runs on Port 8080)
-│     ├── 📁 src/             (Customer marketplace logic)
+├── 📁 admin/   (Runs on Port 8081)
+│     ├── 📁 src/             (Admin management logic)
 │     └── 📄 pom.xml
 │
-└── 📁 admin/       (Runs on Port 8081)
-      ├── 📁 src/             (Admin management logic)
+└── 📁 customer/       (Runs on Port 8080)
+      ├── 📁 src/             (Customer marketplace logic)
       └── 📄 pom.xml
 ```
 
